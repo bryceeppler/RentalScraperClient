@@ -1,7 +1,7 @@
 import "./App.css";
 import Layout from "./components/layout";
 import { useQuery } from "@tanstack/react-query";
-
+import { useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
@@ -83,23 +83,30 @@ type Listing = {
 };
 
 const ListingCard = ({ listing }: { listing: Listing }) => {
+  const [selectedImage, setSelectedImage] = useState(0);
+
+  const handleImageChange = (index: number) => {
+    setSelectedImage(index);
+  };
   return (
     <div className="card bg-base-100 shadow-xl">
       <div className="carousel w-full">
-        {listing.images.map((image, index) => (
-          <div className="carousel-item w-full" key={index}>
-            <img
-              src={image}
-              className="h-48 w-full rounded-t-lg object-cover"
-            />
-          </div>
-        ))}
+        <img
+          src={listing.images[selectedImage]}
+          className="h-48 w-full rounded-t-lg object-cover"
+        />
       </div>
       <div className="flex w-full flex-wrap justify-center gap-2 py-2">
-        {listing.images.map((image, index) => (
-          <a href={`#item${index}`} className="btn-xs btn" key={index}>
+        {listing.images.map((_, index) => (
+          <button
+            className={`btn-xs btn ${
+              selectedImage === index ? "btn-primary" : ""
+            }`}
+            onClick={() => handleImageChange(index)}
+            key={index}
+          >
             {index + 1}
-          </a>
+          </button>
         ))}
       </div>
       <div className="card-body">
