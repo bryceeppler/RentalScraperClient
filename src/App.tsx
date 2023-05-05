@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import Layout from "./components/layout";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const dummyCard = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+    <div className="card bg-base-100 shadow-xl">
+      <figure>
+        <img
+          src="https://images.craigslist.org/00g0g_kTyiJ2k1hiQ_09G06s_600x450.jpg"
+          alt="Shoes"
+        />
+      </figure>
+      <div className="card-body">
+        <h2 className="card-title">
+          Newly renovated, 1 bedroom condo with den
+        </h2>
+        <ul>
+          <li>1 bedroom</li>
+          <li>1 bathroom</li>
+          <li>1 den</li>
+          <li>1 parking spot</li>
+        </ul>
+        <p className="card-text">
+          <span className="font-bold text-green-500">$</span>
+          <span className="font-bold text-green-500">1,800</span>
+          <span className="text-gray-500">/month</span>
         </p>
+
+        <div className="card-actions justify-end">
+          <button className="btn-primary btn-sm btn">View</button>
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
+};
+function App() {
+  return (
+    <Layout>
+      <div className="mx-auto grid w-full max-w-4xl grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid-cols-1">{dummyCard()}</div>
+        <div className="grid-cols-1">{dummyCard()}</div>
+        <div className="grid-cols-1">{dummyCard()}</div>
+        <div className="grid-cols-1">{dummyCard()}</div>
+        <div className="grid-cols-1">{dummyCard()}</div>
+        <div className="grid-cols-1">{dummyCard()}</div>
+      </div>
+    </Layout>
+  );
 }
 
-export default App
+export default App;

@@ -35,7 +35,7 @@ const themes = [
   "winter",
 ];
 
-export default function ThemeSelector({}: Props) {
+export default function ThemeSelector() {
   useEffect(() => {
     themeChange(false);
     // 👆 false parameter is required for react project
@@ -49,7 +49,7 @@ export default function ThemeSelector({}: Props) {
         </div>
         <ul
           tabIndex={0}
-          className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow"
+          className="dropdown-content menu rounded-box bg-base-100 w-52 p-2 shadow"
         >
           {themes.map((theme) => (
             <li key={theme}>
