@@ -31,8 +31,8 @@ const ListingCard = ({ listing }: { listing: Listing }) => {
       return "Craigslist";
     } else if (link.includes("kijiji")) {
       return "Kijiji";
-    } else if (link.includes("used.ca")) {
-      return "Used.ca";
+    } else if (link.includes("usedvictoria.com")) {
+      return "UsedVictoria";
     } else {
       return "Unknown";
     }
