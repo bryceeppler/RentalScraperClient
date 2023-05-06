@@ -5,8 +5,9 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
-// https://images.craigslist.org/00g0g_kTyiJ2k1hiQ_09G06s_600x450.jpg
 
+// https://images.craigslist.org/00g0g_kTyiJ2k1hiQ_09G06s_600x450.jpg
+const API_URL = import.meta.env.API_URL || "http://localhost:8000";
 type Listing = {
   title: string;
   price: number;
@@ -86,21 +87,8 @@ function App() {
     //    ^? const data: number | undefined
     queryKey: ["rentalListings"],
     queryFn: () =>
-      fetch("http://localhost:8000/fetch", {
-        method: "POST",
-        // body: {
-        //   "minPrice":1000,
-        //   "maxPrice":4000,
-        //   "postedAfter":""
-        // }
-        body: JSON.stringify({
-          minPrice: 1000,
-          maxPrice: 4000,
-          postedAfter: "",
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+      fetch("http://localhost:8000/all", {
+        method: "GET",
       }).then((res) => res.json()),
     onSuccess: (data) => {
       console.log(data);
