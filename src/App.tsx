@@ -26,8 +26,23 @@ const ListingCard = ({ listing }: { listing: Listing }) => {
   const handleImageChange = (index: number) => {
     setSelectedImage(index);
   };
+  const getWebsiteName = (link: string) => {
+    if (link.includes("craigslist")) {
+      return "Craigslist";
+    } else if (link.includes("kijiji")) {
+      return "Kijiji";
+    } else if (link.includes("used.ca")) {
+      return "Used.ca";
+    } else {
+      return "Unknown";
+    }
+  };
+
   return (
     <div className="card bg-base-100 shadow-xl">
+      <div className="absolute right-0 top-0 mr-2 mt-2 rounded bg-secondary px-2 py-1 text-white">
+        {getWebsiteName(listing.link)}
+      </div>
       <div className="carousel w-full">
         <img
           src={listing.images[selectedImage]}
