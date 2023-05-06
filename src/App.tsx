@@ -7,7 +7,9 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
 // https://images.craigslist.org/00g0g_kTyiJ2k1hiQ_09G06s_600x450.jpg
-const API_URL = import.meta.env.API_URL || "http://localhost:8000";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+console.log(API_URL);
+
 type Listing = {
   title: string;
   price: number;
@@ -29,13 +31,13 @@ const ListingCard = ({ listing }: { listing: Listing }) => {
       <div className="carousel w-full">
         <img
           src={listing.images[selectedImage]}
-          className="h-48 w-full rounded-t-lg object-cover"
+          className="h-64 w-full rounded-t-lg object-cover"
         />
       </div>
       <div className="flex w-full flex-wrap justify-center gap-2 py-2">
         {listing.images.map((_, index) => (
           <button
-            className={`btn-xs btn ${
+            className={`btn-xs btn-circle btn ${
               selectedImage === index ? "btn-primary" : ""
             }`}
             onClick={() => handleImageChange(index)}
@@ -84,7 +86,6 @@ const ListingCard = ({ listing }: { listing: Listing }) => {
 
 function App() {
   const { data, isLoading } = useQuery<Listing[]>({
-    //    ^? const data: number | undefined
     queryKey: ["rentalListings"],
     queryFn: () =>
       fetch(`${API_URL}/all`, {
@@ -95,12 +96,63 @@ function App() {
     },
   });
 
+  const [selectedTimeFrame, setSelectedTimeFrame] = useState("Last 7 days");
+
+  const getCutOffTime = () => {
+    switch (selectedTimeFrame) {
+      case "Last 3 hours":
+        return dayjs().subtract(3, "hour");
+      case "Last 12 hours":
+        return dayjs().subtract(12, "hour");
+      case "Last 24 hours":
+        return dayjs().subtract(1, "day");
+      case "Last 3 days":
+        return dayjs().subtract(3, "day");
+      case "Last 7 days":
+      default:
+        return dayjs().subtract(7, "day");
+    }
+  };
+
+  const handleTimeFrameChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedTimeFrame(event.target.value);
+  };
+
+  const filteredData = data
+    ? data
+        .filter((listing) => dayjs(listing.posted_at).isAfter(getCutOffTime()))
+        .sort((a, b) => dayjs(b.posted_at).diff(dayjs(a.posted_at)))
+    : [];
+
   return (
     <Layout>
+      <div className="mx-auto my-4 max-w-4xl p-2">
+        <label htmlFor="timeFrameSelector" className="mr-2">
+          Filter by:
+        </label>
+        <select
+          id="timeFrameSelector"
+          value={selectedTimeFrame}
+          onChange={handleTimeFrameChange}
+          className="select-bordered select"
+        >
+          <option>Last 3 hours</option>
+          <option>Last 12 hours</option>
+          <option>Last 24 hours</option>
+          <option>Last 3 days</option>
+          <option>Last 7 days</option>
+        </select>
+      </div>
+      {filteredData.length === 0 && !isLoading && (
+        <div className="text-center">No listings found</div>
+      )}
       <div className="mx-auto grid w-full max-w-4xl grid-cols-1 gap-4 p-2 md:grid-cols-1 lg:grid-cols-2">
         {isLoading && <div className="animate-bounce">Loading...</div>}
-        {data &&
-          data.map((listing: Listing) => <ListingCard listing={listing} />)}
+        {filteredData.map((listing: Listing, index: number) => (
+          <ListingCard listing={listing} key={index} />
+        ))}
       </div>
     </Layout>
   );
