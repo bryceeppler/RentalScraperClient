@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { themeChange } from "theme-change";
 
-type Props = object;
-
 const themes = [
   "light",
   "dark",
@@ -43,13 +41,13 @@ export default function ThemeSelector() {
   return (
     <div>
       {/* using theme-change package and daisyUI themes, create a menu that drops down to display clickable themes */}
-      <div className="dropdown-hover dropdown">
+      <div className="dropdown dropdown-hover">
         <div tabIndex={0} className="">
           Theme
         </div>
         <ul
           tabIndex={0}
-          className="dropdown-content menu rounded-box bg-base-100 w-52 p-2 shadow"
+          className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow"
         >
           {themes.map((theme) => (
             <li key={theme}>

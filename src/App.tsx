@@ -6,72 +6,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 // https://images.craigslist.org/00g0g_kTyiJ2k1hiQ_09G06s_600x450.jpg
-const dummyCard = () => {
-  return (
-    <div className="card bg-base-100 shadow-xl">
-      <div className="carousel w-full">
-        <div id="item1" className="carousel-item w-full">
-          <img
-            src="https://images.craigslist.org/00g0g_kTyiJ2k1hiQ_09G06s_600x450.jpg"
-            className="w-full"
-          />
-        </div>
-        <div id="item2" className="carousel-item w-full">
-          <img
-            src="https://images.craigslist.org/00g0g_kTyiJ2k1hiQ_09G06s_600x450.jpg"
-            className="w-full"
-          />
-        </div>
-        <div id="item3" className="carousel-item w-full">
-          <img
-            src="https://images.craigslist.org/00g0g_kTyiJ2k1hiQ_09G06s_600x450.jpg"
-            className="w-full"
-          />
-        </div>
-        <div id="item4" className="carousel-item w-full">
-          <img
-            src="https://images.craigslist.org/00g0g_kTyiJ2k1hiQ_09G06s_600x450.jpg"
-            className="w-full"
-          />
-        </div>
-      </div>
-      <div className="flex w-full justify-center gap-2 py-2">
-        <a href="#item1" className="btn-xs btn">
-          1
-        </a>
-        <a href="#item2" className="btn-xs btn">
-          2
-        </a>
-        <a href="#item3" className="btn-xs btn">
-          3
-        </a>
-        <a href="#item4" className="btn-xs btn">
-          4
-        </a>
-      </div>
-      <div className="card-body">
-        <h2 className="card-title">
-          Newly renovated, 1 bedroom condo with den
-        </h2>
-        <ul>
-          <li>1 bedroom</li>
-          <li>1 bathroom</li>
-          <li>1 den</li>
-          <li>1 parking spot</li>
-        </ul>
-        <p className="card-text">
-          <span className="font-bold text-green-500">$</span>
-          <span className="font-bold text-green-500">1,800</span>
-          <span className="text-gray-500">/month</span>
-        </p>
 
-        <div className="card-actions justify-end">
-          <button className="btn-primary btn-sm btn">View</button>
-        </div>
-      </div>
-    </div>
-  );
-};
 type Listing = {
   title: string;
   price: number;
