@@ -87,7 +87,7 @@ function App() {
     //    ^? const data: number | undefined
     queryKey: ["rentalListings"],
     queryFn: () =>
-      fetch("http://localhost:8000/all", {
+      fetch(`${API_URL}/all`, {
         method: "GET",
       }).then((res) => res.json()),
     onSuccess: (data) => {
