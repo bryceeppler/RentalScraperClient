@@ -138,6 +138,15 @@ function App() {
   const filteredData = data
     ? data
         .filter((listing) => dayjs(listing.posted_at).isAfter(getCutOffTime()))
+        // title lowercase should not contain "colwood" or "langford"
+        .filter((listing) => {
+          const title = listing.title.toLowerCase();
+          return !(
+            title.includes("colwood") ||
+            title.includes("langford") ||
+            title.includes("sooke")
+          );
+        })
         .sort((a, b) => dayjs(b.posted_at).diff(dayjs(a.posted_at)))
     : [];
 
